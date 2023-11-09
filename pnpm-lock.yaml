@@ -119,6 +119,9 @@ dependencies:
   '@trpc/server':
     specifier: ^10.37.1
     version: 10.37.1
+  '@types/aos':
+    specifier: ^3.0.7
+    version: 3.0.7
   '@vercel/analytics':
     specifier: ^1.0.0
     version: 1.0.0(react@18.2.0)
@@ -2177,6 +2180,10 @@ packages:
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
     dependencies:
       '@types/estree': 1.0.5
+    dev: false
+
+  /@types/aos@3.0.7:
+    resolution: {integrity: sha512-sEhyFqvKauUJZDbvAB3Pggynrq6g+2PS4XB3tmUr+mDL1gfDJnwslUC4QQ7/l8UD+LWpr3RxZVR/rHoZrLqZVg==}
     dev: false
 
   /@types/debug@4.1.11:
