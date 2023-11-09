@@ -27,48 +27,6 @@ function getPageFromParams(params: { slug: string[] }) {
   return page
 }
 
-export function generateMetadata({
-  params,
-}: PageProps): Metadata {
-  const page = getPageFromParams(params)
-
-  if (!page) {
-    return {}
-  }
-
-  const url = env.NEXT_PUBLIC_APP_URL
-
-  const ogUrl = new URL(`${url}/api/og`)
-  ogUrl.searchParams.set("heading", page.title)
-  ogUrl.searchParams.set("type", siteConfig.name)
-  ogUrl.searchParams.set("mode", "light")
-
-  return {
-    title: page.title,
-    description: page.description,
-    openGraph: {
-      title: page.title,
-      description: page.description,
-      type: "article",
-      url: absoluteUrl(page.slug),
-      images: [
-        {
-          url: ogUrl.toString(),
-          width: 1200,
-          height: 630,
-          alt: page.title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: page.title,
-      description: page.description,
-      images: [ogUrl.toString()],
-    },
-  }
-}
-
 export function generateStaticParams(): { slug: string[] }[] {
   return allPages.map((page) => ({
     slug: page.slugAsParams.split("/"),

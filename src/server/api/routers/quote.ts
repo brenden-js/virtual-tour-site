@@ -1,30 +1,33 @@
 import { z } from "zod";
-
+import { eq } from 'drizzle-orm';
 import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-// import { houses } from "@/server/db/schema";
+import { quotes } from "@/server/db/schema";
 
 export const quoteRouter = createTRPCRouter({
-  // createQuote: publicProcedure
-  //   .input(z.object({
-  //     stAddress: z.string(),
-  //   }))
-  //   .mutation(async ({ ctx, input }) => {
-  //     // simulate a slow db call
-  //     await new Promise((resolve) => setTimeout(resolve, 1000));
-  //
-  //     await ctx.db.insert(houses).values({
-  //       createdById: ctx.session.user.id,
-  //     });
-  //   }),
-
-  getLatest: publicProcedure.query(({ ctx }) => {
-    return ctx.db.query.posts.findFirst({
-      orderBy: (posts, { desc }) => [desc(posts.createdAt)],
-    });
+  createQuote: publicProcedure
+    .input(z.object({
+      stAddress: z.string(),
+      city: z.string(),
+      sqft: z.number(),
+      zipCode: z.string(),
+      tourType: z.string(),
+      requestedTimes: z.string(),
+      email: z.string(),
+      name: z.string(),
+      phone: z.string(),
+      region: z.string()
+    }))
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.db.insert(quotes).values({ ...input, status: "NEW_QUOTE", state: "California" });
+    }),
+  getQuote: publicProcedure
+    .input(z.number())
+    .query(({ ctx, input }) => {
+    return ctx.db.query.quotes.findFirst({ where: eq(quotes.id, input)});
   }),
 
   getSecretMessage: protectedProcedure.query(() => {

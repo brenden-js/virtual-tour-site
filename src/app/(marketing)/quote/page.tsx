@@ -1,7 +1,6 @@
 "use client"
 import {useState} from "react";
 import {type AllRegionData} from "@/types/quote-gen";
-import type {MatterportType, HostingType} from "@prisma/client";
 import {ServiceAreaStep} from "@/components/create-quote/steps/1-service-area";
 import {SquareFootageStep} from "@/components/create-quote/steps/2-sqft";
 import {MatterportStep} from "@/components/create-quote/steps/3-matterport";
@@ -13,6 +12,7 @@ import {AddressStep} from "@/components/create-quote/steps/5-address";
 import {GoogleReCaptchaProvider} from "react-google-recaptcha-v3";
 import {DownArrow} from "@/components/icons/down-arrow";
 import {PhoneIcon} from "@heroicons/react/20/solid";
+import {env} from "@/env.mjs";
 
 
 export type QuoteData = {
@@ -20,8 +20,7 @@ export type QuoteData = {
   city: string;
   zipCode: string;
   region: keyof AllRegionData;
-  matterportType: MatterportType;
-  hostingType: HostingType;
+  tourType: string;
   sqft: string;
   name: string;
   email: string;
@@ -35,8 +34,7 @@ const Index = () => {
     stAddress: "",
     city: "",
     zipCode: "",
-    matterportType: "none",
-    hostingType: "viewport_hosted",
+    tourType: "",
     sqft: "",
     region: "none",
     name: "",
@@ -50,6 +48,7 @@ const Index = () => {
       {/*to add snapping back add this to the classname-> md:snap-y md:snap-mandatory max-h-screen overflow-scroll*/}
       <main>
         <div className="flex flex-col ">
+
           {/* Hero */}
           <div className="flex shrink-0 snap-center snap-always flex-col items-center justify-center py-36">
             <h1 className="text-center font-heading text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
@@ -100,7 +99,7 @@ const Index = () => {
           )}
 
           {/*HOSTING SECTION*/}
-          {quoteData.matterportType !== "none" ? (
+          {!!quoteData.tourType.length ? (
             <AddressStep setQuoteData={setQuoteData} quoteData={quoteData} />
           ) : (
             <></>
@@ -119,13 +118,12 @@ const Index = () => {
           {/*RECAP*/}
           {quoteData.region &&
           quoteData.sqft &&
-          quoteData.matterportType &&
-          quoteData.hostingType &&
+          quoteData.tourType &&
           quoteData.stAddress &&
           quoteData.city &&
           quoteData.zipCode.length === 5 ? (
             <GoogleReCaptchaProvider
-              reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY as string}
+              reCaptchaKey={env.NEXT_PUBLIC_RECAPTCHA_KEY}
             >
               <RecapStep
                 quoteData={quoteData}

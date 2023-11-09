@@ -1,32 +1,17 @@
-import dayjs from "dayjs";
-import dynamicQuoteGenerator, {allCachedRegionData, type RegionData,} from "@/types/quote-gen";
-import {prisma} from "@/lib/db";
+import dynamicQuoteGenerator, {allCachedRegionData, type AllRegionData, type RegionData,} from "@/types/quote-gen";
 import {PricingBlock} from "@/components/pricing-block";
+import {api} from "@/trpc/server";
 
-const getHouse = async (houseId: string) => {
-  return prisma.house.findUnique({
-      where: {
-        id: houseId,
-      },
-      include: {
-        customer: {
-          select: {
-            name: true
-          }
-        }
-      }
-    }
-  );
-}
 
 export default async function QuoteDetails({params}: { params: { houseId: string } }) {
-  const house = await getHouse(params.houseId);
+  const house = await api.quote.getQuote.query(parseInt(params.houseId))
   console.log("House", house);
+  if (!house) {
+    return <div>Could not find that quote.</div>
+  }
   const price = dynamicQuoteGenerator(
-    allCachedRegionData[house!.region][
-      house!.matterportType as keyof RegionData
-      ],
-    house!.sqft || 0
+    allCachedRegionData[house.region as keyof AllRegionData][house.tourType as keyof RegionData],
+    house.sqft
   ).toLocaleString("en-US", {
     style: "currency",
     currency: "USD",
@@ -40,13 +25,6 @@ export default async function QuoteDetails({params}: { params: { houseId: string
               QUOTE
             </p>
           </div>
-          {house.customer && (
-            <div className="my-3 rounded-full ">
-              <p className="font-bold">
-                {`Prepared for ${house.customer.name}`}
-              </p>
-            </div>
-          )}
 
           <div className="my-8 flex grow items-center justify-between">
             <div>
@@ -60,42 +38,24 @@ export default async function QuoteDetails({params}: { params: { houseId: string
             </div>
           </div>
           <div className={'flex w-full flex-col items-center justify-between rounded-lg border p-3 md:p-10'}>
-            <div className={'mb-2 flex w-full items-center justify-between border-b'}>
-              <p className="mr-1 md:text-lg">
-                Service
-              </p>
-              <h5 className="font-semibold md:text-lg">
-                3D Matterport Tour Capture and Hosting
-              </h5>
-              {house.matterportType === "tour_and_floorplans" ? ("Tour and Floorplans included") : (
-                <></>
-              )
-              }
-            </div>
-            <div className={'mb-2 flex w-full items-center justify-between border-b'}>
-              <p className="mr-1 md:text-lg">
-                Price
-              </p>
+            <div className={'mb-2 flex w-full items-center justify-between'}>
+              <div className="flex flex-col text-left">
+                <h5 className="font-semibold md:text-lg">
+                  3D Matterport Tour Capture and Hosting
+                </h5>
+                {house.tourType === "tour_and_floorplans" ? ("+ Floorplans") : ("")}
+              </div>
               <h5 className="font-semibold md:text-lg">
                 {price}
               </h5>
-              {house.matterportType === "tour_and_floorplans" ? ("Tour and Floorplans included") : (
-                <></>
-              )
-              }
             </div>
           </div>
-          {/*<p className="text-md text-gray-700">*/}
-          {/*  {house.hostingType === "self_hosted"*/}
-          {/*    ? "Self hosted tour (your Matterport account)"*/}
-          {/*    : "Viewport hosted tour (our Matterport account)"}*/}
-          {/*</p>*/}
-          {/*<h2 className="mt-2 text-2xl font-semibold md:mt-8">*/}
-          {/*  Your request for service has been received.*/}
-          {/*</h2>*/}
-          {/*<p className="mt-1 inline-block text-xl"> We will reach out via email shortly!</p>*/}
+          <h2 className="mt-2 text-2xl font-semibold md:mt-8">
+            Your request for service has been received.
+          </h2>
+          <p className="mt-1 inline-block text-xl"> We will contact via email/phone shortly!</p>
           <div className="mt-16">
-            <PricingBlock type={'quote'} price={price} showLearnMoreButton={true}/>
+            <PricingBlock type={'quote'} price={price} showLearnMoreButton={true} />
           </div>
           {/*<div>*/}
           {/*  <button*/}

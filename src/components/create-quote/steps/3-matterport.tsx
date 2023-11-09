@@ -2,14 +2,12 @@
 import type {RegionData} from "@/types/quote-gen";
 import dynamicQuoteGenerator, {allCachedRegionData} from "@/types/quote-gen";
 import PlusIcon from "../../icons/plus";
-import Image from "next/image";
 import type {Dispatch, SetStateAction} from "react";
 import type {QuoteData} from "@/app/(marketing)/quote/page";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
@@ -38,9 +36,9 @@ export const MatterportStep = ({setQuoteData, quoteData}: {
       {/*MATTERPORT TYPE*/}
       <div className={'flex w-4/5 flex-col lg:w-2/5'}>
         <div
-          className={`mb-4 flex cursor-pointer items-center justify-between rounded-lg border ${quoteData.matterportType === 'tour_only' ? 'border-blue-500 bg-blue-100/20 ring-1 ring-blue-500' : 'border-gray-300 hover:border-gray-400'} p-4 py-8 text-sm font-medium shadow-sm  peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500`}
+          className={`mb-4 flex cursor-pointer items-center justify-between rounded-lg border ${quoteData.tourType === 'tour_only' ? 'border-blue-500 bg-blue-100/20 ring-1 ring-blue-500' : 'border-gray-300 hover:border-gray-400'} p-4 py-8 text-sm font-medium shadow-sm  peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500`}
           onClick={() => setQuoteData((prev) => {
-            return {...prev, matterportType: 'tour_only'};
+            return {...prev, tourType: 'tour_only'};
           })}
         >
           <div>
@@ -54,9 +52,9 @@ export const MatterportStep = ({setQuoteData, quoteData}: {
           })}</p>
         </div>
         <div
-          className={`col-span-2 mb-4 flex cursor-pointer items-center justify-between rounded-lg border lg:col-span-1 ${quoteData.matterportType === 'tour_and_floorplans' ? 'border-blue-500 bg-blue-100/20 ring-1 ring-blue-500' : 'border-gray-300 hover:border-gray-400'} p-4 py-8 text-sm font-medium shadow-sm  peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500`}
+          className={`col-span-2 mb-4 flex cursor-pointer items-center justify-between rounded-lg border lg:col-span-1 ${quoteData.tourType === 'tour_and_floorplans' ? 'border-blue-500 bg-blue-100/20 ring-1 ring-blue-500' : 'border-gray-300 hover:border-gray-400'} p-4 py-8 text-sm font-medium shadow-sm  peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500`}
           onClick={() => setQuoteData((prev) => {
-            return {...prev, matterportType: 'tour_and_floorplans'};
+            return {...prev, tourType: 'tour_and_floorplans'};
           })}
         >
           <div>
@@ -104,7 +102,7 @@ export const MatterportStep = ({setQuoteData, quoteData}: {
         </Dialog>
       </div>
       <div
-        className={`flex flex-col items-center justify-center ${quoteData.matterportType !== 'none'  ? 'duration-400 animate-in fade-in delay-75' : 'invisible'}`}
+        className={`flex flex-col items-center justify-center ${quoteData.tourType !== 'none'  ? 'duration-400 animate-in fade-in delay-75' : 'invisible'}`}
       >
         <div
           className={`mt-12`}>Scroll

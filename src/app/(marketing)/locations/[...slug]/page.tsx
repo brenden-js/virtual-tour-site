@@ -16,7 +16,7 @@ interface PostPageProps {
   }
 }
 
-async function getPostFromParams(params) {
+function getPostFromParams(params: Location) {
   const slug = params?.slug?.join("/")
   const post = allLocations.find((post) => post.slugAsParams === slug)
 
@@ -69,7 +69,7 @@ export async function generateMetadata({
   }
 }
 
-export async function generateStaticParams(): Promise<
+export function generateStaticParams(): Promise<
   PostPageProps["params"][]
 > {
   return allLocations.map((post) => ({

@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link"
 import {cn} from "@/lib/utils"
 import {buttonVariants} from "@/components/ui/button"
@@ -9,11 +10,13 @@ import tourScreenshot from "@/../public/images/tour-screenshot.png"
 import {BlogPreview} from "@/components/landing-pages/blog-preview";
 import {Logos} from "@/components/landing-pages/logos";
 
+
 export default function IndexPage() {
   return (
     <>
       <section className="">
-        <div className="md:[w-98vw] absolute -z-50 -mt-10 h-screen w-screen overflow-hidden rounded md:ml-2 lg:w-[97vw] xl:ml-3">
+        <div
+          className="md:[w-98vw] absolute -z-50 -mt-10 h-screen w-screen overflow-hidden rounded md:ml-2 lg:w-[97vw] xl:ml-3">
           <Image
             src={tourScreenshot}
             alt={'background image'}
@@ -34,7 +37,7 @@ export default function IndexPage() {
           >
             Built by agents, for agents -{">"}
           </Link>
-          <h1  className="font-heading text-3xl text-white sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="font-heading text-3xl text-white sm:text-5xl md:text-6xl lg:text-7xl">
             Get 3D virtual tours <br /> for your listings.
           </h1>
           <p className="max-w-[42rem] leading-normal text-gray-200 sm:text-xl sm:leading-8">

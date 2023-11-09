@@ -22,14 +22,18 @@ export const AddressStep = ({setQuoteData, quoteData}: {
         </div>
       </div>
       <div className="w-4/5 max-w-md">
+        <label htmlFor="street address" className="font-heading">Street Address</label>
         <input
+          name="street address"
           className="mb-4 w-full rounded-lg border border-gray-300 p-3 text-lg hover:border-gray-400"
-          placeholder="Street Address"
+          placeholder="123 Main Street"
           type="text"
           onChange={(e) => setQuoteData((prev) => {
             return {...prev, stAddress: e.target.value};
           })} />
+        <label htmlFor="city" className="font-heading">City</label>
         <input
+          name="city"
           className="mb-4 w-full rounded-lg border border-gray-300 p-3 text-lg hover:border-gray-400"
           placeholder="City"
           type="text"
@@ -37,9 +41,11 @@ export const AddressStep = ({setQuoteData, quoteData}: {
             return {...prev, city: e.target.value};
           })}
         />
+        <label htmlFor="zip code" className="font-heading">Zip Code</label>
         <input
+          name={"zip code"}
           className="w-full rounded-lg border border-gray-300 p-3 text-lg hover:border-gray-400"
-          placeholder="ZIP Code"
+          placeholder="90210"
           type="number"
           onChange={(e) => setQuoteData((prev) => {
             return {...prev, zipCode: e.target.value};

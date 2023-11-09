@@ -1,19 +1,18 @@
-import {cn} from "@/lib/utils";
-
 "use-client"
+import toast from "react-hot-toast";
+import {useEffect} from "react";
+import {cn} from "@/lib/utils";
 import type {RegionData} from "@/types/quote-gen";
 import dynamicQuoteGenerator, {
   allCachedRegionData,
 } from "@/types/quote-gen";
 import dayjs from "dayjs";
-import {useState} from "react";
 import {useRouter} from 'next/navigation';
 import type {Dispatch, SetStateAction} from "react";
 import type {QuoteData} from "@/app/(marketing)/quote/page";
-import type {House} from "@prisma/client";
 import {useGoogleReCaptcha} from 'react-google-recaptcha-v3';
-import {toast} from "@/components/ui/use-toast";
 import {buttonVariants} from "@/components/ui/button";
+import {api} from "@/trpc/react";
 
 const RecapStep = ({
                      setQuoteData,
@@ -28,62 +27,35 @@ const RecapStep = ({
     const router = useRouter();
   const {executeRecaptcha} = useGoogleReCaptcha();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const createQuote = api.quote.createQuote.useMutation()
+  console.log('Create quoter', createQuote)
+  useEffect(() => {
+    if (createQuote.isError) {
+      toast.error('Error creating quote')
+    } else if (createQuote.isSuccess) {
+      const id = createQuote.data.insertId
+      router.replace(`/quote/${id}`)
+    }
+  }, [createQuote.data?.insertId, createQuote.isError, createQuote.isSuccess, router])
 
-  const handleSendQuote = async () => {
-    console.log('Beginning send quote...')
-
-    setIsLoading(true)
+  const onSubmit = async () => {
     if (!executeRecaptcha) {
       console.log('Execute recaptcha not yet available');
-      return;
+      return toast.error('Recaptcha failed, try again later.')
     }
-
     const token = await executeRecaptcha('yourAction');
-
     if (token) {
-      const res = await fetch(`/api/houses/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...quoteData,
-          token,
-          requestedTimes: selectedTimes,
-        })
+      const result = await createQuote.mutateAsync({
+        ...quoteData,
+        sqft: parseInt(quoteData.sqft),
+        requestedTimes: selectedTimes.join(',')
       });
-
-      setIsLoading(false);
-
-      if (!res?.ok) {
-        if (res.status === 402) {
-          return toast({
-            title: "Limit of 3 houses reached.",
-            description: "Please upgrade to the PRO plan.",
-            variant: "destructive",
-          })
-        }
-
-        return toast({
-          title: "Something went wrong.",
-          description: "Your house was not created. Please try again.",
-          variant: "destructive",
-        });
-      }
-
-      const house: House = await res.json();
-      console.log('HOUSE RES', house);
-      router.replace(`/quote/${house.id}`)
+      console.log("Result:::", result)
     } else {
       console.log('Execute recaptcha failed');
-      return toast({
-        title: "Something went wrong with Recaptcha.",
-        description: "Please try again later.",
-        variant: "destructive",
-      })
+      return toast.error('Recaptcha failed, try again later.')
     }
-  };
+  }
 
   return (
     <div
@@ -101,18 +73,13 @@ const RecapStep = ({
           <p className="text-lg font-semibold">
             {dynamicQuoteGenerator(
               allCachedRegionData[quoteData.region][
-                quoteData.matterportType as keyof RegionData
+                quoteData.tourType as keyof RegionData
                 ],
               parseInt(quoteData.sqft)
             ).toLocaleString("en-US", {
               style: "currency",
               currency: "USD",
             })}
-          </p>
-          <p className="text-md text-muted-foreground">
-            {quoteData.hostingType === "self_hosted"
-              ? "Hosted in your Matterport.com account"
-              : "Hosted in our Matterport.com account"}
           </p>
           <h6 className=" mt-8 inline-block">Selected availability:</h6>
           {selectedTimes.length > 0 ? (
@@ -148,7 +115,9 @@ const RecapStep = ({
       </div>
       <div className="flex w-11/12 flex-col space-y-4 p-8 md:w-1/3">
         <div>
+          <label htmlFor="name" className="font-heading">Your Name</label>
           <input
+            name="name"
             className="w-full rounded-lg border border-muted-foreground p-3 text-lg hover:border-gray-400"
             placeholder="Name"
             type="text"
@@ -160,7 +129,9 @@ const RecapStep = ({
           />
         </div>
         <div>
+          <label htmlFor="email" className="font-heading">Your Email</label>
           <input
+            name="email"
             className="w-full rounded-lg border border-muted-foreground p-3 text-lg hover:border-gray-400"
             placeholder="Email address"
             type="email"
@@ -172,7 +143,9 @@ const RecapStep = ({
           />
         </div>
         <div>
+          <label htmlFor="phone" className="font-heading">Your Phone</label>
           <input
+            name="phone"
             className="w-full rounded-lg border border-muted-foreground p-3 text-lg hover:border-gray-400"
             placeholder="Phone Number"
             type="tel"
@@ -187,9 +160,9 @@ const RecapStep = ({
         <button
           className={cn(buttonVariants())}
           onClick={() => {
-            void handleSendQuote()
+            void onSubmit()
           }}
-          disabled={isLoading}
+          disabled={createQuote.isLoading}
         >
           Request Booking Now
         </button>
