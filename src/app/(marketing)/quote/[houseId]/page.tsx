@@ -1,6 +1,7 @@
 import dynamicQuoteGenerator, {allCachedRegionData, type AllRegionData, type RegionData,} from "@/types/quote-gen";
 import {PricingBlock} from "@/components/pricing-block";
 import {api} from "@/trpc/server";
+import {CheckmarkIcon} from "react-hot-toast";
 
 
 export default async function QuoteDetails({params}: { params: { houseId: string } }) {
@@ -20,12 +21,13 @@ export default async function QuoteDetails({params}: { params: { houseId: string
     <main className="flex min-h-screen grow flex-col items-center">
       {house && (
         <div className="flex max-w-screen-2xl flex-col items-center justify-center p-8 md:p-16">
-          <div className="rounded-full bg-muted px-6 py-2">
-            <p className="font-bold text-muted-foreground">
-              QUOTE
-            </p>
+          <div className="flex align-center justify-center rounded-full bg-gray-100 px-6 py-3">
+            <CheckmarkIcon className="mr-3"/>
+            <h6 className="font-bold text-gray-600">
+              Booking request confirmed
+            </h6>
           </div>
-
+          <p className="mt-1 inline-block text-gray-800 text-sm"> We will contact via email/phone shortly!</p>
           <div className="my-8 flex grow items-center justify-between">
             <div>
               <h1 className="text-center text-4xl font-bold">{house.stAddress}</h1>
@@ -50,10 +52,6 @@ export default async function QuoteDetails({params}: { params: { houseId: string
               </h5>
             </div>
           </div>
-          <h2 className="mt-2 text-2xl font-semibold md:mt-8">
-            Your request for service has been received.
-          </h2>
-          <p className="mt-1 inline-block text-xl"> We will contact via email/phone shortly!</p>
           <div className="mt-16">
             <PricingBlock type={'quote'} price={price} showLearnMoreButton={true} />
           </div>
