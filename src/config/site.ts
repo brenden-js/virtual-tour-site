@@ -1,6 +1,4 @@
-import { SiteConfig } from "types"
-
-export const siteConfig: SiteConfig = {
+export const siteConfig = {
   name: "Viewport Marketing",
   description:
     "Get 3D virtual tours for your listings.",

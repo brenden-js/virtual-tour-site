@@ -9,7 +9,7 @@ export const metadata = {
   title: "Our Blog",
 }
 
-export default async function BlogPage() {
+export default function BlogPage() {
   const posts = allPosts
     .filter((post) => post.published)
     .sort((a, b) => {

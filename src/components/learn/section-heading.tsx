@@ -1,14 +1,10 @@
-import clsx from 'clsx'
+import {type ReactNode} from "react";
 
 
-export function SectionHeading({ number, children, className, ...props }) {
+export function SectionHeading({ number, children, id }: { number: string, children: ReactNode, id: string}) {
   return (
     <h2
-      className={clsx(
-        className,
-        'inline-flex items-center rounded-full py-1 px-4 text-blue-600 ring-1 ring-inset ring-blue-600'
-      )}
-      {...props}
+      className={'inline-flex items-center rounded-full py-1 px-4 text-blue-600 ring-1 ring-inset ring-blue-600'}
     >
       <span className="font-mono text-sm" aria-hidden="true">
         {number.padStart(2, '0')}

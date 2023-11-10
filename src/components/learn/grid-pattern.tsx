@@ -1,8 +1,8 @@
 import { useId } from 'react'
 
 
-export function GridPattern(props) {
-  let patternId = useId()
+export function GridPattern() {
+  const patternId = useId()
 
   return (
     <svg aria-hidden="true" className="absolute inset-0 h-full w-full">
@@ -12,7 +12,6 @@ export function GridPattern(props) {
           width="128"
           height="128"
           patternUnits="userSpaceOnUse"
-          {...props}
         >
           <path d="M0 128V.5H128" fill="none" stroke="currentColor" />
         </pattern>

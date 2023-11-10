@@ -52,6 +52,7 @@ export function NavBar() {
       if (navBarRef === undefined) {
         return
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const offset = bodyRect.top + navBarRef.current.offsetHeight + 1
 
       if (window.scrollY >= Math.floor(bodyRect.height) - window.innerHeight) {

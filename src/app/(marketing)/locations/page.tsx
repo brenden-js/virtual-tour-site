@@ -6,7 +6,7 @@ export const metadata = {
 }
 
 
-export default async function LocationPage() {
+export default function LocationPage() {
   const rsLocations = allLocations.filter((location) => location.county === "Riverside")
   const sdLocations = allLocations.filter((location) => location.county === "San Diego")
   const ocLocations = allLocations.filter((location) => location.county === "Orange County")
@@ -28,7 +28,7 @@ export default async function LocationPage() {
       {rsLocations.length ? (
         <div className="mb-12 grid grid-cols-2 gap-3">
           {rsLocations.map((post) => (
-            <Link href={post.slug} className="px-2 py-3 hover:bg-gray-100">
+            <Link key={post.slug} href={post.slug} className="px-2 py-3 hover:bg-gray-100">
               <article
                 key={post._id}
                 className=""
@@ -46,7 +46,7 @@ export default async function LocationPage() {
       {sdLocations.length ? (
         <div className="mb-12 grid grid-cols-2 gap-3">
           {sdLocations.map((post) => (
-            <Link href={post.slug} className="px-2 py-3 hover:bg-gray-100">
+            <Link key={post.slug} href={post.slug} className="px-2 py-3 hover:bg-gray-100">
               <article
                 key={post._id}
                 className=""
@@ -64,7 +64,7 @@ export default async function LocationPage() {
       {ocLocations.length ? (
         <div className="grid grid-cols-2 gap-3">
           {ocLocations.map((post) => (
-            <Link href={post.slug} className="px-2 py-3 hover:bg-gray-100">
+            <Link key={post.slug} href={post.slug} className="px-2 py-3 hover:bg-gray-100">
               <article
                 key={post._id}
                 className=""

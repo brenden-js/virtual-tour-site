@@ -11,6 +11,7 @@ export const AvailabilityStep = ({selectedTimes, setSelectedTimes}: {
 }) => {
   const [dayCursor, setDayCursor] = useState<number>(3);
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const days: Day[] = [...Array(dayCursor)].map((day, idx) => {
     // const now = new Date();
     // // we do not accept next day appointments after 1pm, so do not show this as an option
