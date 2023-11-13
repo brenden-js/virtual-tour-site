@@ -1,9 +1,6 @@
 import Link from "next/link"
 import {allLocations} from "contentlayer/generated"
 
-export const metadata = {
-  title: "Our Service Locations in Southern California",
-}
 
 
 export default function LocationPage() {

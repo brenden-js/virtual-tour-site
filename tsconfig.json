@@ -24,6 +24,7 @@
     "plugins": [{ "name": "next" }]
   },
   "include": [
+    "contentlayer.config.js",
     ".eslintrc.cjs",
     "next-env.d.ts",
     "**/*.ts",
@@ -31,6 +32,8 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts",
+    ".contentlayer/generated",
+    "next.config.js"
   ],
   "exclude": ["node_modules"]
 }
