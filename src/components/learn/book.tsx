@@ -37,7 +37,7 @@ export function Book() {
           Get an instant quote and request available dates from anywhere, without the need for lengthy back and forths.
         </p>
       </div>
-      <div className='mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4 lg:max-w-4xl lg:px-12'>
+      <div className='mx-auto mt-16 px-4 sm:px-6 md:max-w-2xl md:px-4 lg:max-w-4xl lg:px-12'>
         <ol
           role="list"
           className="-mx-3 grid grid-cols-1 gap-y-10 lg:grid-cols-3 lg:text-center xl:-mx-12 xl:divide-x xl:divide-slate-400/20"

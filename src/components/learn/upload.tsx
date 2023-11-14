@@ -27,7 +27,7 @@ export function Upload() {
       aria-labelledby="resources-title"
       className="scroll-mt-14 py-16 sm:scroll-mt-32 sm:py-20 lg:py-48"
     >
-      <div className="">
+      <div className='mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4 lg:max-w-4xl lg:px-12'>
         <SectionHeading number="3" id="resources-title">
           Upload
         </SectionHeading>
