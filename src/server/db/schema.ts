@@ -22,7 +22,7 @@ export const mysqlTable = mysqlTableCreator((name) => `virtual-tour-site_${name}
 export const quotes = mysqlTable(
   "quote",
   {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+    id: varchar("id", {length: 256 }).primaryKey(),
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),

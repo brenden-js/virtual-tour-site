@@ -5,7 +5,7 @@ import {CheckmarkIcon} from "react-hot-toast";
 
 
 export default async function QuoteDetails({params}: { params: { houseId: string } }) {
-  const house = await api.quote.getQuote.query(parseInt(params.houseId))
+  const house = await api.quote.getQuote.query(params.houseId)
   console.log("House", house);
   if (!house) {
     return <div>Could not find that quote.</div>
@@ -27,7 +27,7 @@ export default async function QuoteDetails({params}: { params: { houseId: string
               Booking request confirmed
             </h6>
           </div>
-          <p className="mt-1 inline-block text-gray-800 text-sm"> We will contact via email/phone shortly!</p>
+          <p className="mt-2 inline-block text-gray-800 text-sm">A confirmation has been sent to your email.</p>
           <div className="my-8 flex grow items-center justify-between">
             <div>
               <h1 className="text-center text-4xl font-bold">{house.stAddress}</h1>

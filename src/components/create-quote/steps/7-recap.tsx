@@ -33,10 +33,10 @@ const RecapStep = ({
     if (createQuote.isError) {
       toast.error('Error creating quote')
     } else if (createQuote.isSuccess) {
-      const id = createQuote.data.insertId
+      const id = createQuote.data
       router.replace(`/quote/${id}`)
     }
-  }, [createQuote.data?.insertId, createQuote.isError, createQuote.isSuccess, router])
+  }, [createQuote.data, createQuote.isError, createQuote.isSuccess, router])
 
   const onSubmit = async () => {
     if (!executeRecaptcha) {

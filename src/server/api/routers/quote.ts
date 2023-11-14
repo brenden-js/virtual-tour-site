@@ -1,11 +1,10 @@
-import { z } from "zod";
-import { eq } from 'drizzle-orm';
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "@/server/api/trpc";
-import { quotes } from "@/server/db/schema";
+import {z} from "zod";
+import {eq} from 'drizzle-orm';
+import {createTRPCRouter, protectedProcedure, publicProcedure,} from "@/server/api/trpc";
+import {quotes} from "@/server/db/schema";
+import { v4 as uuidv4 } from 'uuid';
+import {inngest} from "@/server/inngest/client";
+
 
 export const quoteRouter = createTRPCRouter({
   createQuote: publicProcedure
@@ -21,14 +20,26 @@ export const quoteRouter = createTRPCRouter({
       phone: z.string(),
       region: z.string()
     }))
-    .mutation(async ({ ctx, input }) => {
-      return await ctx.db.insert(quotes).values({ ...input, status: "NEW_QUOTE", state: "California" });
+    .mutation(async ({ctx, input}) => {
+      const newId = uuidv4()
+      await ctx.db.insert(quotes).values({...input, status: "NEW_QUOTE", state: "California", id: newId})
+
+      await inngest.send({
+        name: "quote/guest.created",
+        data: {
+          email: input.email,
+          name: input.name,
+          houseId: newId,
+          stAddress: input.stAddress
+        },
+      });
+      return newId
     }),
   getQuote: publicProcedure
-    .input(z.number())
-    .query(({ ctx, input }) => {
-    return ctx.db.query.quotes.findFirst({ where: eq(quotes.id, input)});
-  }),
+    .input(z.string())
+    .query(({ctx, input}) => {
+      return ctx.db.query.quotes.findFirst({where: eq(quotes.id, input)});
+    }),
 
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
