@@ -9,6 +9,9 @@ const config = {
     }
     return config
   },
+  experimental: {
+    webpackBuildWorker: true
+  },
 };
 
 export default withContentlayer(config);
