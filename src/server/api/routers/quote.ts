@@ -29,8 +29,13 @@ export const quoteRouter = createTRPCRouter({
         data: {
           email: input.email,
           name: input.name,
+          phone: input.phone,
           houseId: newId,
-          stAddress: input.stAddress
+          stAddress: input.stAddress,
+          region: input.region,
+          sqft: input.sqft,
+          city: input.city,
+          tourType: input.tourType
         },
       });
       return newId

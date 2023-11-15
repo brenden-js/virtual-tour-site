@@ -33,6 +33,8 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: z.string(),
     INNGEST_EVENT_KEY: z.string().min(1),
     POSTMARK_API_TOKEN: z.string().min(1),
+    HUBSPOT_TOKEN: z.string(),
+    ADMIN_EMAIL: z.string()
   },
 
   /**
@@ -60,6 +62,8 @@ export const env = createEnv({
     NEXT_PUBLIC_RECAPTCHA_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_KEY,
     INNGEST_EVENT_KEY: process.env.INNGEST_EVENT_KEY,
     POSTMARK_API_TOKEN: process.env.POSTMARK_API_TOKEN,
+    HUBSPOT_TOKEN: process.env.HUBSPOT_TOKEN,
+    ADMIN_EMAIL: process.env.ADMIN_EMAIL
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
