@@ -40,11 +40,15 @@ export default function IndexPage() {
           <h1 className="font-heading text-3xl text-white sm:text-5xl md:text-6xl lg:text-7xl">
             Get 3D virtual tours <br /> for your listings.
           </h1>
-          <p className="max-w-[42rem] leading-normal text-gray-200 sm:text-xl sm:leading-8">
+          <p className="max-w-[42rem] leading-normal text-gray-200 sm:text-xl sm:leading-8 ">
             Move your listings faster, for more money, and with less work, with our Matterport tour capture and hosting
             service.
           </p>
           <div className="space-x-4">
+
+            <Link href="/quote" className={cn(buttonVariants({size: "lg"})) + " shadow-2xl sm:hidden"}>
+              Book Now
+            </Link>
             <Link
               href="/learn"
               className={cn(buttonVariants({variant: "outline", size: "lg"})) + " text-white"}
