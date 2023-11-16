@@ -45,9 +45,6 @@ export default function IndexPage() {
             service.
           </p>
           <div className="space-x-4">
-            <Link href="/quote" className={cn(buttonVariants({size: "lg"})) + " shadow-2xl"}>
-              Book Now
-            </Link>
             <Link
               href="/learn"
               className={cn(buttonVariants({variant: "outline", size: "lg"})) + " text-white"}
