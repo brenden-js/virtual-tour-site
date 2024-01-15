@@ -31,12 +31,6 @@ export default function IndexPage() {
           />
         </div>
         <div className="container flex max-w-[64rem] flex-col items-center gap-4 space-y-6 py-32 text-center">
-          <Link
-            href={'/about'}
-            className="rounded-2xl bg-muted px-4 py-1.5 text-sm font-medium"
-          >
-            Built by agents, for agents -{">"}
-          </Link>
           <h1 className="font-heading text-3xl text-white sm:text-5xl md:text-6xl lg:text-7xl">
             Get 3D virtual tours <br /> for your listings.
           </h1>
