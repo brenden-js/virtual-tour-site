@@ -1,28 +1,27 @@
-# Create T3 App
+# A modern business web app stack
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is an example of a business website built with full stack type safety. 
 
-## What's next? How do I make an app with this?
+Using this stack, you can quickly iterate on new ideas if you're a small to medium size business looking to experiment with new ideas, 
+without having to have a large team. 
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+But scalable and flexible enough 
+to support a multi-national conglomerate with a large team, thousands of locations, advanced dashboards, and 
+essentially anything else you can think of; all without having to manage complicated infrastructure thanks to it's fully serverless backend.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Key business features of this web app
+- Self service quote generator
+- Landing pages
+- Micro blog platform
+- Transactional emails
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Tech stack
+- Next.js - Static page generation, web client, and API
+- Planetscale MySQL - Serverless database provider with unlimited scalability
+- Drizzle ORM - Type safe ORM for updating and deploying MySQL data
+- tRPC - Quickly create type safe API's
+- T3 - A quick scaffolding to create a full type safe web application
+- Tailwind - CSS in JSX styling
+- Typescript - Code completion and type safety for fast iteration
+- Inngest - Type safe event handling for backend processes
+- Contentlayer - Type safe MDX powered blog articles
