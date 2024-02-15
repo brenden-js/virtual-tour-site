@@ -1,6 +1,6 @@
 import {z} from "zod";
 import {eq} from 'drizzle-orm';
-import {createTRPCRouter, protectedProcedure, publicProcedure,} from "@/server/api/trpc";
+import {createTRPCRouter, publicProcedure,} from "@/server/api/trpc";
 import {quotes} from "@/server/db/schema";
 import { v4 as uuidv4 } from 'uuid';
 import {inngest} from "@/server/inngest/client";
@@ -45,8 +45,4 @@ export const quoteRouter = createTRPCRouter({
     .query(({ctx, input}) => {
       return ctx.db.query.quotes.findFirst({where: eq(quotes.id, input)});
     }),
-
-  getSecretMessage: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
-  }),
 });
